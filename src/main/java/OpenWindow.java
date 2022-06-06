@@ -216,8 +216,10 @@ public class OpenWindow extends JPanel {
                                     WebElement comment2 = lastMessage.findElement(By.cssSelector("span[dir='rtl']"));
                                     //System.out.println(comment2.getText());
                                 }
+                                JLabel messageComment=new JLabel("");
+                                messageComment.setBounds(400,400,200,50);
 
-                               for (int i=0; i< comment.size(); i++){
+                                for (int i=0; i< comment.size(); i++){
                                    List<String > mes = Collections.singletonList(comment.get(i).getText());
                                    List<String> m = List.of(mes.get(0).split(" שלא "));
                                    //System.out.println(m.get(i) + "ההודעה האחרונה");
@@ -225,14 +227,14 @@ public class OpenWindow extends JPanel {
                                    //System.out.println(comment.get(i).getText());
                                    String[] last = mes.get(i).split("\n");
                                    System.out.println(last[last.length-2] + "**********");
+                                    messageComment = new JLabel(last[last.length-2]);
+                                   add(messageComment);
+                                   repaint();
                                     Thread.sleep(10000);
 
                                }
 
-                               //JLabel label = new JLabel(mes.get(i));
-                               //label.setBounds(400,300,20,50);
-                               //add(label);
-                               //repaint();
+
 
 
                             }
