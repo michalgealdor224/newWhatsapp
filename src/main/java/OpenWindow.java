@@ -21,9 +21,27 @@ public class OpenWindow extends JPanel {
     private ChromeDriver driver;
     private JLabel vi;
     private JLabel error;
-
-
     private boolean trySend = true;
+    public static final int X_OF_WINDOW = 0,Y_OF_WINDOW = 0,WIDTH_OF_WINDOW = 700,HEIGHT_OF_WINDOW = 600,X_OF_BUTTON = 250,Y_OF_BUTTON = 100,
+            WIDTH_OF_BUTTON = 200,HEIGHT_OF_BUTTON = 70,Y_OF_SUCCEED = 150,WIDTH_OF_SUCCEED = 300,SIZE_OF_TEXT = 20,
+    X_OF_PHONE_NUMBER =300, Y_OF_PHONE_NUMBER= 250,WIDTH_OF_PHONE_NUMBER= 250,HEIGHT_OF_PHONE_NUMBER= 250,
+            X_OF_ENTER_NUMBER =300, Y_OF_ENTER_NUMBER= 220,WIDTH_OF_ENTER_NUMBER= 200,HEIGHT_OF_ENTER_NUMBER= 20,
+            X_OF_ENTER_TEXT =300, Y_OF_ENTER_TEXT= 280,WIDTH_OF_ENTER_TEXT= 200,HEIGHT_OF_ENTER_TEXT= 20,
+            X_OF_TEXT_TO_SEND =300, Y_OF_TEXT_TO_SEND= 320,WIDTH_OF_TEXT_TO_SEND= 100,HEIGHT_OF_TEXT_TO_SEND= 50,
+            X_OF_VI =300, Y_OF_VI= 380,WIDTH_OF_VI= 70,HEIGHT_OF_VI= 40,
+            X_OF_ERROR =350, Y_OF_ERROR= 380,WIDTH_OF_ERROR= 70,HEIGHT_OF_ERROR= 40,SIZE_OF_LABEL = 15;
+    public static final int LAST_MESSAGE =1,START_LOCATION =0, LOCATION_ONE =1,
+    X_MESSAGE_COMMENT = 400, Y_MESSAGE_COMMENT = 400, WIDTH_MESSAGE_COMMENT = 200, HEIGHT_MESSAGE_COMMENT = 50,
+    LOCATION_TWO =2, TEN_SECOND =10000,LENGTH_NUMBER_VALID =12, LENGTH_VALID =10;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34,35 +52,35 @@ public class OpenWindow extends JPanel {
 
     }
     public OpenWindow () {
-        this.setBounds(0, 0, 700, 600);
+        this.setBounds(X_OF_WINDOW, Y_OF_WINDOW, WIDTH_OF_WINDOW, HEIGHT_OF_WINDOW);
         this.setFocusable(true);
         this.requestFocus();
         this.setLayout(null);
         this.setDoubleBuffered(true);
         this.setVisible(true);
         new Thread( () -> {
-            button.setBounds(250, 100, 200, 70);
+            button.setBounds(X_OF_BUTTON, Y_OF_BUTTON, WIDTH_OF_BUTTON, HEIGHT_OF_BUTTON);
             add(button);
             this.background = new ImageIcon("whatsapp.jpeg");
             succeedToEnter = new JLabel("ההתחברות בוצעה בהצלחה!");
-            succeedToEnter.setBounds(250,150,300,70);
-            this.succeedToEnter.setFont(new Font("TimesRoman", Font.BOLD, 20));
+            succeedToEnter.setBounds(X_OF_BUTTON,Y_OF_SUCCEED,WIDTH_OF_SUCCEED,HEIGHT_OF_BUTTON);
+            this.succeedToEnter.setFont(new Font("TimesRoman", Font.BOLD, SIZE_OF_TEXT));
             this.phoneNumber = new TextField();
-            this.phoneNumber.setBounds(300,250,100,30);
+            this.phoneNumber.setBounds(X_OF_PHONE_NUMBER,Y_OF_PHONE_NUMBER,WIDTH_OF_PHONE_NUMBER,HEIGHT_OF_PHONE_NUMBER);
             enterNumber = new JLabel( "הכנס מספר נמען:");
-            enterNumber.setBounds(300,220,200,20);
-            this.enterNumber.setFont(new Font("TimesRoman", Font.BOLD, 15));
+            enterNumber.setBounds(X_OF_ENTER_NUMBER,Y_OF_ENTER_NUMBER,WIDTH_OF_ENTER_NUMBER,HEIGHT_OF_ENTER_NUMBER);
+            this.enterNumber.setFont(new Font("TimesRoman", Font.BOLD, SIZE_OF_LABEL));
             enterText = new JLabel("הכנס טקסט לשליחה:");
-            enterText.setBounds(300,280,200,20);
-            this.enterText.setFont(new Font("TimesRoman", Font.BOLD, 15));
+            enterText.setBounds(X_OF_ENTER_TEXT,Y_OF_ENTER_TEXT,WIDTH_OF_ENTER_TEXT,HEIGHT_OF_ENTER_TEXT);
+            this.enterText.setFont(new Font("TimesRoman", Font.BOLD, SIZE_OF_LABEL));
             this.textToSend = new TextField();
-            this.textToSend.setBounds(300,320,100,50);
+            this.textToSend.setBounds(X_OF_TEXT_TO_SEND,Y_OF_TEXT_TO_SEND,WIDTH_OF_TEXT_TO_SEND,HEIGHT_OF_TEXT_TO_SEND);
             this.vi = new JLabel("סטטוס");
-            this.vi.setBounds(300,380,70,40);
-            this.vi.setFont(new Font("TimesRoman", Font.BOLD, 15));
+            this.vi.setBounds(X_OF_VI,Y_OF_VI,WIDTH_OF_VI,HEIGHT_OF_VI);
+            this.vi.setFont(new Font("TimesRoman", Font.BOLD, SIZE_OF_LABEL));
             this.error = new JLabel("מספר הטלפון אינו תקין");
-            this.error.setBounds(350,380,70,40);
-            this.error.setFont(new Font("TimesRoman", Font.BOLD, 15));
+            this.error.setBounds(X_OF_ERROR,Y_OF_ERROR,WIDTH_OF_ERROR,HEIGHT_OF_ERROR);
+            this.error.setFont(new Font("TimesRoman", Font.BOLD, SIZE_OF_LABEL));
             add(phoneNumber);
             add(enterNumber);
             add(enterText);
@@ -97,8 +115,8 @@ public class OpenWindow extends JPanel {
                     valid.set(false);
 
                 }
-                if (number.charAt(0) == '0') {
-                    number = "972" + number.substring(1);
+                if (number.charAt(START_LOCATION) == '0') {
+                    number = "972" + number.substring(LOCATION_ONE);
                     valid.set(true);
                 }
                 if (ifValid(number)) {
@@ -159,7 +177,7 @@ public class OpenWindow extends JPanel {
                     WebElement chat = this.driver.findElement(By.className("_33LGR"));
                     WebElement chatBody = chat.findElement(By.cssSelector("div[tabindex='-1'][class='_3K4-L']"));
                     List<WebElement> allMessage = chatBody.findElements(By.cssSelector("div[tabindex='-1']"));
-                    WebElement lastMessage = allMessage.get(allMessage.size() - 1);
+                    WebElement lastMessage = allMessage.get(allMessage.size() - LAST_MESSAGE);
                     AtomicBoolean flag = new AtomicBoolean(true);
 
                     new Thread(() -> {
@@ -181,7 +199,6 @@ public class OpenWindow extends JPanel {
                                 status = lastMessage.findElement(By.cssSelector("span[data-testid='msg-dblcheck']"));
                                 statusMessage = status.getAttribute("aria-label");
 
-                                //Thread.sleep(50000);
 
                                 if (statusMessage.equals(" נמסרה ")) {
                                     System.out.println("נמסרה");
@@ -205,7 +222,7 @@ public class OpenWindow extends JPanel {
                         try {
                             while (true){
                                 List <WebElement> comment = driver.findElements(By.cssSelector("div[tabindex = '-1'][role = 'region']"));
-                             String messageLas = comment.get(0).getText();
+                             String messageLas = comment.get(START_LOCATION).getText();
                                  String[] messageLass = messageLas.split(" ");
                                 for (int i = 0; i < messageLass.length; i++) {
                                     //System.out.println(messageLass[i] + i +"  this");
@@ -217,46 +234,30 @@ public class OpenWindow extends JPanel {
                                     //System.out.println(comment2.getText());
                                 }
                                 JLabel messageComment=new JLabel("");
-                                messageComment.setBounds(400,400,200,50);
+                                messageComment.setBounds(X_MESSAGE_COMMENT,Y_MESSAGE_COMMENT,WIDTH_MESSAGE_COMMENT,HEIGHT_MESSAGE_COMMENT);
 
                                 for (int i=0; i< comment.size(); i++){
                                    List<String > mes = Collections.singletonList(comment.get(i).getText());
-                                   List<String> m = List.of(mes.get(0).split(" שלא "));
+                                   List<String> m = List.of(mes.get(START_LOCATION).split(" שלא "));
                                    //System.out.println(m.get(i) + "ההודעה האחרונה");
                                    System.out.println(mes.get(i));
                                    //System.out.println(comment.get(i).getText());
                                    String[] last = mes.get(i).split("\n");
-                                   System.out.println(last[last.length-2] + "**********");
-                                    messageComment = new JLabel(last[last.length-2]);
+                                   System.out.println(last[last.length-LOCATION_TWO] + "**********");
+                                    messageComment = new JLabel(last[last.length-LOCATION_TWO]);
                                    add(messageComment);
                                    repaint();
-                                    Thread.sleep(10000);
-
+                                    Thread.sleep(TEN_SECOND);
                                }
-
-
-
-
                             }
-
 
                         }catch (Exception e){
 
                         }
-
                     }).start();
-
-
-
-
-
-
                 }
             });
-
         });thread.start();
-
-
     }
 
 
@@ -276,10 +277,10 @@ public class OpenWindow extends JPanel {
 
     public static boolean ifValid (String phoneNumber) {
         boolean isValid =false;
-        if (phoneNumber.charAt(0)=='9' && phoneNumber.charAt(1)=='7' && phoneNumber.charAt(2)=='2' && phoneNumber.length()==12) {
+        if (phoneNumber.charAt(START_LOCATION)=='9' && phoneNumber.charAt(LOCATION_ONE)=='7' && phoneNumber.charAt(LOCATION_TWO)=='2' && phoneNumber.length()==LENGTH_NUMBER_VALID) {
             isValid=true;
         }
-        if (phoneNumber.length()==10 && phoneNumber.charAt(0) =='0' && phoneNumber.charAt(1)=='5'){
+        if (phoneNumber.length()==LENGTH_VALID && phoneNumber.charAt(START_LOCATION) =='0' && phoneNumber.charAt(LOCATION_ONE)=='5'){
             isValid= true;
         }
         return isValid;
@@ -288,7 +289,7 @@ public class OpenWindow extends JPanel {
     protected void paintComponent (Graphics g){
         super.paintComponent(g);
         if (this.background != null) {
-            g.drawImage(this.background.getImage(), 0, 0, 700, 600, null);
+            g.drawImage(this.background.getImage(), X_OF_WINDOW, Y_OF_WINDOW, WIDTH_OF_WINDOW, HEIGHT_OF_WINDOW, null);
         }
     }
 }
